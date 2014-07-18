@@ -36,7 +36,7 @@ appControllers.controller('ProductControllerAdd', ['$scope', '$http', function($
 
 }]);
 
-appControllers.controller('ProductDetailsController', ['$scope', '$routeParams', '$http', '$route', function($scope, $routeParams, $http, $route) {
+appControllers.controller('ProductDetailsController', ['$scope', '$routeParams', '$http', function($scope, $routeParams, $http) {
     $http.get('http://localhost:8000/django/inventory/' + $routeParams.id).success(function(data) {
       $scope.product = data[0];
     });
