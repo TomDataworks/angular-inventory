@@ -40,6 +40,10 @@ appControllers.controller('ProductDetailsController', ['$scope', '$routeParams',
     $http.get('http://localhost:8000/django/inventory/' + $routeParams.id).success(function(data) {
       $scope.product = data[0];
     });
+    $scope.back = function() {
+      window.location = '#/products';
+      $route.reload();
+    };
     $scope.save = function() {
       $http.get('http://localhost:8000/django/update/inventory/' + $routeParams.id + '/' + $scope.product.fields.count);
     };
