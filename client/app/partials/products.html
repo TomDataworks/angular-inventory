@@ -1,0 +1,24 @@
+Search: <input ng-model="query">
+<br/>
+<div class="col-sm-auto">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th><strong>#</strong></th>
+        <th>ID</th>
+        <th>Count</th>
+        <th>Name</th>
+        <th>Info</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="product in products | filter:query">
+        <td>{{product.pk}}</td>
+        <td><a href="#/products/{{product.fields.itemId}}">{{product.fields.itemId}}</a></td>
+        <td>{{product.fields.count}}</td>
+        <td>{{product.fields.name}}</td>
+        <td>{{product.fields.short}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
