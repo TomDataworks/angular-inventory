@@ -17,7 +17,7 @@ class UserView(viewsets.ModelViewSet):
     def get_permissions(self):
         # allow non-authenticated user to create
         return (AllowAny() if self.request.method == 'POST'
-                else permissions.IsStaffOrTargetUser()),
+                else permissions.IsStaff()),
 
 class AuthView(APIView):
     authentication_classes = (authenticators.QuietBasicAuthentication,)
