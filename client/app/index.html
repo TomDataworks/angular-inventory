@@ -20,7 +20,9 @@
 <body role="document">
   <script src="bower_components/jquery/dist/jquery.min.js"></script>
   <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-  <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+  <!-- Some code from http://richardtier.com/2014/03/15/authenticate-using-django-rest-framework-endpoint-and-angularjs/
+       used to discern how to do this authentication integration properly. -->
+  <div class="navbar navbar-default navbar-fixed-top" role="navigation" ng-controller="authController" ng-init="user='{{user.username}}'">
     <div class="container">
       <div class="navbar-header">
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -41,14 +43,14 @@
             </ul>
           </li>
         </ul>
-          <form class="navbar-form navbar-right" role="form">
+          <form class="navbar-form navbar-right" role="form" ng-submit="login()">
             <div class="form-group">
-              <input type="text" placeholder="Email" class="form-control">
+              <input ng-model="username" required name="username" type="text" placeholder="Email" class="form-control">
             </div>
             <div class="form-group">
-              <input type="password" placeholder="Password" class="form-control">
+              <input ng-model="password" required name="password" type="password" placeholder="Password" class="form-control">
             </div>
-            <button type="submit" class="btn btn-success">Sign in</button>
+            <button type="submit" class="btn btn-success" value="login">Sign in</button>
           </form>
       </div>
     </div>
