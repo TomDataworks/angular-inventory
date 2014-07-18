@@ -1,4 +1,4 @@
-import HTMLParser
+# import HTMLParser
 import random
 import re
 
