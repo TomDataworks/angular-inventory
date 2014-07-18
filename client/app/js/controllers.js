@@ -36,19 +36,21 @@ appControllers.controller('ProductControllerAdd', ['$scope', '$http', function($
 
 }]);
 
-appControllers.controller('ProductDetailsController', ['$scope', '$routeParams', '$http', function($scope, $routeParams, $http) {
+appControllers.controller('ProductDetailsController', ['$scope', '$routeParams', '$http', '$route', function($scope, $routeParams, $http, $route) {
     $http.get('http://localhost:8000/django/inventory/' + $routeParams.id).success(function(data) {
       $scope.product = data[0];
     });
     $scope.back = function() {
       window.location = '#/products';
-      $route.reload();
     };
     $scope.save = function() {
-      $http.get('http://localhost:8000/django/update/inventory/' + $routeParams.id + '/' + $scope.product.fields.count);
+      $http.get('http://localhost:8000/django/update/inventory/' + $routeParams.id + '/' + $scope.product.fields.count).success(function(data) {
+        window.location = '#/products';
+      });
     };
     $scope.remove = function() {
-      $http.get('http://localhost:8000/django/delete/inventory/' + $routeParams.id);
-      window.location = '#/products';
+      $http.get('http://localhost:8000/django/delete/inventory/' + $routeParams.id).success(function(data) {
+        window.location = '#/products';
+      });
     };
 }]);
