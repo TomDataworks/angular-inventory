@@ -1,0 +1,14 @@
+<p>These are the product details for the new product.</p>
+
+<ul>
+<li>Product ID: <input type="text" ng-model="product.itemId" required /></li>
+<li>In Stock: <input type="number" ng-model="product.count" required /> items</li>
+<li>Full Name: <input type="text" ng-model="product.name" required /></li>
+<li>Short Description: <input type="text" ng-model="product.short" required /></li>
+<li>Full Description: <input type="text" ng-model="product.desc" required /></li>
+</ul>
+
+<p>
+  <button type="button" class="btn btn-primary" onclick="window.location = '#/products';">Back</button>
+  <button type="button" ng-click="save()" class="btn btn-success">Save Changes</button>
+</p>
