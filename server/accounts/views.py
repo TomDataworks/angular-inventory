@@ -1,10 +1,11 @@
-from django.shortcuts import render
+from django.shortcuts import render, render_to_response
 from django.contrib.auth import login, logout
 from django.contrib.auth.models import User
 from rest_framework import viewsets
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from django.http import HttpResponse
 
 # Create your views here.
 
@@ -29,3 +30,6 @@ class AuthView(APIView):
     def delete(self, request, *args, **kwargs):
         logout(request)
         return Response()
+
+def checklogin(request):
+    return HttpResponse([{"username": request.user.username}], 'application/json')

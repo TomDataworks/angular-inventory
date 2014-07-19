@@ -16,5 +16,6 @@ urlpatterns = patterns('',
     url(r'^django/create/inventory/$', 'inventory.views.create'),
     url(r'^django/accounts/users/$', views.UserView.as_view({'get': 'list', 'post': 'create'})),
     url(r'^django/accounts/auth/$', views.AuthView.as_view(), name='authenticate'),
+    url(r'^django/accounts/checklogin/$', 'accounts.views.checklogin'),
     url(r'^django/admin/', include(admin.site.urls)),
 )
