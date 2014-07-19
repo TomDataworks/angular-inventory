@@ -2,7 +2,7 @@
 
 
 // Declare app level module which depends on filters, and services
-angular.module('myApp', [
+var myApp = angular.module('myApp', [
   'ngRoute',
   'ngCookies',
   'ngResource',
@@ -10,13 +10,14 @@ angular.module('myApp', [
   'myApp.services',
   'myApp.directives',
   'myApp.controllers'
-]).
-config(['$routeProvider', function($routeProvider) {
+]);
+
+myApp.config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/products', {templateUrl: 'partials/products.html', controller: 'ProductController'});
   $routeProvider.when('/products/:id', {templateUrl: 'partials/product-details.html', controller: 'ProductDetailsController'});
   $routeProvider.when('/product/add', {templateUrl: 'partials/add-product.html', controller: 'ProductControllerAdd'});
   $routeProvider.otherwise({redirectTo: '/products'});
-}]).
+}]);
 
 // Here we define the authentication system
 // This is the source for the integration code:
@@ -28,13 +29,14 @@ config(['$routeProvider', function($routeProvider) {
 // [4] https://github.com/tbosch/autofill-event
 // [5] http://remysharp.com/2010/10/08/what-is-a-polyfill/
 
-config(['$httpProvider', function($httpProvider){
+myApp.config(['$httpProvider', function($httpProvider){
   // django and angular both support csrf tokens. This tells
   // angular which cookie to add to what header.
   $httpProvider.defaults.xsrfCookieName = 'csrftoken';
   $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
-}]).
-factory('api', function($resource){
+}]);
+
+myApp.factory('api', ['$resource', function($resource){
   function add_auth_header(data, headersGetter){
     // as per HTTP authentication spec [1], credentials must be
     // encoded in base64. Lets use window.btoa [2]
@@ -56,8 +58,9 @@ factory('api', function($resource){
       create: {method: 'POST'}
     })
   };
-}).
-controller('authController', function($scope, $http, api) {
+}]);
+
+myApp.controller('authController', ['$scope', '$http', 'api', function($scope, $http, api) {
   // Angular does not detect auto-fill or auto-complete. If the browser
   // autofills "username", Angular will be unaware of this and think
   // the $scope.username is blank. To workaround this we use the 
@@ -102,4 +105,4 @@ controller('authController', function($scope, $http, api) {
               alert(data.data.username);
             });
       };
-});
+}]);
