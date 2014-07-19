@@ -29,7 +29,7 @@ module.exports = function(grunt) {
       app: {
         files: [
           { expand: true, src: 'src/client/app/*', dest: 'dist/client/app/', filter: 'isFile', flatten: true },
-          { expand: true, src: 'src/client/app/partials', dest: 'dist/client/app/', flatten: true }
+          { expand: true, cwd: 'src/client/app/', src: 'partials/*', dest: 'dist/client/app/' }
         ]
       }
     }
