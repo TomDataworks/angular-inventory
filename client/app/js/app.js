@@ -57,12 +57,16 @@ factory('api', function($resource){
     })
   };
 }).
-controller('authController', function($scope, api) {
+controller('authController', function($scope, $http, api) {
   // Angular does not detect auto-fill or auto-complete. If the browser
   // autofills "username", Angular will be unaware of this and think
   // the $scope.username is blank. To workaround this we use the 
   // autofill-event polyfill [4][5]
   $('#id_auth_form input').checkAndTriggerAutoFillEvent();
+
+  $http.get('/django/accounts/checklogin/').success(function(data) {
+    $scope.user = data.username;
+  });
  
   $scope.getCredentials = function(){
     return {username: $scope.username, password: $scope.password};
