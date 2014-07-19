@@ -30,7 +30,8 @@ appControllers.controller('ProductControllerAdd', ['$scope', '$http', function($
         headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'},
         transformRequest: transform
       }).success(function(responseData) {
-        // nothing yet
+        // go back to the main product listing
+        window.location = '#/products';
       });
     };
 
