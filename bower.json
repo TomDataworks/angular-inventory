@@ -1,0 +1,19 @@
+{
+  "name": "angular-inventory",
+  "description": "Inventory database implemented in Angular Javascript, Django, Grunt, etc.",
+  "version": "0.2.0",
+  "homepage": "https://github.com/Arven/angular-inventory",
+  "license": "AGPL",
+  "private": true,
+  "dependencies": {
+    "angular": "1.2.x",
+    "angular-route": "1.2.x",
+    "angular-loader": "1.2.x",
+    "angular-mocks": "~1.2.x",
+    "html5-boilerplate": "~4.3.0",
+    "angular-cookies": "~1.2.20",
+    "bootstrap": "~3.2.0",
+    "angular-resource": "~1.2.20",
+    "autofill-event": "~1.0.0"
+  }
+}

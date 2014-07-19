@@ -9,14 +9,14 @@ module.exports = function(grunt) {
         dest: 'dist/client/app/js/app.js'
       },
       lib: {
-        src: ['src/client/app/bower_components/jquery/dist/jquery.js',
-              'src/client/app/bower_components/bootstrap/dist/js/bootstrap.js',
-              'src/client/app/bower_components/html5-boilerplate/js/vendor/modernizr-2.6.2.min.js',
-              'src/client/app/bower_components/angular/angular.js',
-              'src/client/app/bower_components/angular-route/angular-route.js',
-              'src/client/app/bower_components/angular-cookies/angular-cookies.js',
-              'src/client/app/bower_components/angular-resource/angular-resource.js',
-              'src/client/app/bower_components/autofill-event/src/autofill-event.js'],
+        src: ['bower_components/jquery/dist/jquery.js',
+              'bower_components/bootstrap/dist/js/bootstrap.js',
+              'bower_components/html5-boilerplate/js/vendor/modernizr-2.6.2.min.js',
+              'bower_components/angular/angular.js',
+              'bower_components/angular-route/angular-route.js',
+              'bower_components/angular-cookies/angular-cookies.js',
+              'bower_components/angular-resource/angular-resource.js',
+              'bower_components/autofill-event/src/autofill-event.js'],
         dest: 'dist/client/app/js/lib.js'
       }
     },
@@ -61,10 +61,10 @@ module.exports = function(grunt) {
       combine: {
         files: {
           'dist/client/app/css/stylesheets.css': [
-            'src/client/app/bower_components/html5-boilerplate/css/normalize.css',
-            'src/client/app/bower_components/html5-boilerplate/css/main.css',
-            'src/client/app/bower_components/bootstrap/dist/css/bootstrap.css',
-            'src/client/app/bower_components/bootstrap/dist/css/bootstrap-theme.css',
+            'bower_components/html5-boilerplate/css/normalize.css',
+            'bower_components/html5-boilerplate/css/main.css',
+            'bower_components/bootstrap/dist/css/bootstrap.css',
+            'bower_components/bootstrap/dist/css/bootstrap-theme.css',
           ]
         }
       },
