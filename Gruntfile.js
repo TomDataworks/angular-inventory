@@ -32,16 +32,40 @@ module.exports = function(grunt) {
           { expand: true, cwd: 'src/client/app/', src: 'partials/*', dest: 'dist/client/app/' }
         ]
       }
+    },
+    sass: {
+      dev: {
+        options: {
+          includePaths: ['bower_components/foundation/scss']
+        },
+        files: {
+          'dist/client/app/css/app.css': 'src/client/app/sass/app.sass',
+          'dist/client/app/css/theme.css': 'src/client/app/sass/theme.sass'
+        }
+      },
+      deploy: {
+        options: {
+          includePaths: ['bower_components/foundation/scss'],
+          outputStyle: 'compressed'
+        },
+        files: {
+          'dist/client/app/css/app.min.css': 'src/client/app/sass/app.sass',
+          'dist/client/app/css/theme.min.css': 'src/client/app/sass/theme.sass'
+        }
+      }
     }
   });
 
-  // Load the plugin that provides the "uglify" task.
+  // Load the plugin that provides the "concat" task.
   grunt.loadNpmTasks('grunt-contrib-concat');
+  // Load the plugin that provides the "uglify" task.
   grunt.loadNpmTasks('grunt-contrib-uglify');
+  // Load the plugin that provides the "copy" task.
   grunt.loadNpmTasks('grunt-contrib-copy');
+  // Load the plugin that provides the "sass" task.
   grunt.loadNpmTasks('grunt-sass');
 
   // Default task(s).
-  grunt.registerTask('default', ['concat', 'uglify', 'copy']);
+  grunt.registerTask('default', ['concat', 'uglify', 'copy', 'sass']);
 
 };
