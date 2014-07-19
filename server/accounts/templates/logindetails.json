@@ -1,0 +1,1 @@
+{"a": '{{request.session._auth_user_id}}'}
