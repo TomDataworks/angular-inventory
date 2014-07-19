@@ -9,7 +9,9 @@ module.exports = function(grunt) {
         dest: 'dist/client/app/js/app.js'
       },
       lib: {
-        src: ['src/client/app/bower_components/html5-boilerplate/js/vendor/modernizr-2.6.2.min.js',
+        src: ['src/client/app/bower_components/jquery/dist/jquery.js',
+              'src/client/app/bower_components/bootstrap/dist/js/bootstrap.js',
+              'src/client/app/bower_components/html5-boilerplate/js/vendor/modernizr-2.6.2.min.js',
               'src/client/app/bower_components/angular/angular.js',
               'src/client/app/bower_components/angular-route/angular-route.js',
               'src/client/app/bower_components/angular-cookies/angular-cookies.js',
