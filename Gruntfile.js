@@ -24,12 +24,20 @@ module.exports = function(grunt) {
       lib: {
         files: {'dist/client/app/js/lib.min.js': ['dist/client/app/js/lib.js']}
       }
+    },
+    copy: {
+      app: {
+        files: [
+          { expand: true, src: ['src/client/app/*.html'], dest: ['dist/client/app/'], filter: 'isFile' }
+        ]
+      }
     }
   });
 
   // Load the plugin that provides the "uglify" task.
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-uglify');
+  grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-sass');
 
   // Default task(s).
