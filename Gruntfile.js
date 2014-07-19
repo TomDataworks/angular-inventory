@@ -41,6 +41,6 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-sass');
 
   // Default task(s).
-  grunt.registerTask('default', ['concat', 'uglify']);
+  grunt.registerTask('default', ['concat', 'uglify', 'copy']);
 
 };
