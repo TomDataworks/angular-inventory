@@ -16,6 +16,14 @@ module.exports = function(grunt) {
               'src/client/app/bower_components/autofill-event/src/autofill-event.js'],
         dest: 'dist/client/app/js/lib.js'
       }
+    },
+    uglify: {
+      app: {
+        files: {'dist/client/app/js/app.min.js': ['dist/client/app/js/app.js']}
+      },
+      lib: {
+        files: {'dist/client/app/js/lib.min.js': ['dist/client/app/js/lib.js']}
+      }
     }
   });
 
@@ -25,6 +33,6 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-sass');
 
   // Default task(s).
-  grunt.registerTask('default', ['concat']);
+  grunt.registerTask('default', ['concat', 'uglify']);
 
 };
