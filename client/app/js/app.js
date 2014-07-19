@@ -67,7 +67,7 @@ controller('authController', function($scope, api) {
   $scope.getCredentials = function(){
     return {username: $scope.username, password: $scope.password};
   };
- 
+
   $scope.login = function(){
     api.auth.login($scope.getCredentials()).
       $promise.
