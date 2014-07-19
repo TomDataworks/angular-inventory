@@ -1,6 +1,5 @@
 from django.shortcuts import render
 from django.core import serializers
-from django.middleware.csrf import get_token
 from inventory.models import Item
 import json
 
@@ -9,7 +8,6 @@ from django.http import HttpResponse
 from inventory.models import Item
 
 def index(request):
-    csrf_token = get_token(request)
     list_of_items = Item.objects.all()
     data = serializers.serialize("json", list_of_items)
     return HttpResponse(data, content_type="application/json")
