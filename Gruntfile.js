@@ -53,6 +53,25 @@ module.exports = function(grunt) {
           'dist/client/app/css/theme.min.css': 'src/client/app/sass/theme.sass'
         }
       }
+    },
+    cssmin: {
+      combine: {
+        files: {
+          'dist/client/app/css/stylesheets.css': [
+            'src/client/app/bower_components/html5-boilerplate/css/normalize.css',
+            'src/client/app/bower_components/html5-boilerplate/css/main.css',
+            'src/client/app/bower_components/bootstrap/dist/css/bootstrap.css',
+            'src/client/app/bower_components/bootstrap/dist/css/bootstrap-theme.css',
+          ]
+        }
+      },
+      minify: {
+        expand: true,
+        cwd: 'dist/client/app/css',
+        src: ['*.css', '!*.min.css'],
+        dest: 'dist/client/app/css',
+        ext: '.min.css'
+      }
     }
   });
 
@@ -64,8 +83,10 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-copy');
   // Load the plugin that provides the "sass" task.
   grunt.loadNpmTasks('grunt-sass');
+  // Load the plugin that provides the "cssmin" task.
+  grunt.loadNpmTasks('grunt-contrib-cssmin');
 
   // Default task(s).
-  grunt.registerTask('default', ['concat', 'uglify', 'copy', 'sass']);
+  grunt.registerTask('default', ['concat', 'uglify', 'copy', 'sass', 'cssmin']);
 
 };
