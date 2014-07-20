@@ -72,7 +72,7 @@ myApp.factory('api', ['$resource', function($resource){
     users: $resource('/django/accounts/users/', {}, {
       create: {method: 'POST'}
     }, {}),
-    inventory: $resource('/django/inventory/')
+    inventory: $resource('/django/inventory/:id/')
   };
 }]);
 
