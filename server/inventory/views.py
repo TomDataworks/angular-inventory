@@ -17,9 +17,9 @@ def detail(request, item_id):
     data = serializers.serialize("json", item)
     return HttpResponse(data, content_type="application/json")
 
-def update(request):
+def update(request, item_id):
     if request.method == 'POST':
-        item = Item.objects.filter(itemId=request.POST['itemId'])
+        item = Item.objects.filter(itemId=item_id)
         for o in items:
             o.count = request.POST['count']
             o.save()
