@@ -1,9 +1,11 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
-
+from rest_framework import routers
 from accounts import views as views
 
 admin.autodiscover()
+
+router = routers.DefaultRouter(trailing_slash=False)
 
 urlpatterns = patterns('',
     # Examples:
