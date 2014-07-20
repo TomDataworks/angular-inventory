@@ -22,13 +22,8 @@ appControllers.controller('ProductControllerAdd', ['$scope', '$http', function($
     };
 
     $scope.save = function() {
-      var transform = function(data){
-          return $.param(data);
-      }
-
       $http.post("/django/create/inventory/", $scope.product, {
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'},
-        transformRequest: transform
+        headers: { 'Content-Type': 'application/json; charset=UTF-8'}
       }).success(function(responseData) {
         // go back to the main product listing
         window.location = '#/products';
@@ -45,20 +40,15 @@ appControllers.controller('ProductDetailsController', ['$scope', '$routeParams',
       window.location = '#/products';
     };
     $scope.save = function() {
-      var transform = function(data){
-          return $.param(data);
-      }
-
       $http.post("/django/update/inventory/" + $routeParams.id, $scope.product, {
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'},
-        transformRequest: transform
+        headers: { 'Content-Type': 'application/json; charset=UTF-8'}
       }).success(function(responseData) {
         // go back to the main product listing
         window.location = '#/products';
       });
     };
     $scope.remove = function() {
-      $http.get('/django/delete/inventory/' + $routeParams.id).success(function(data) {
+      $http.delete('/django/delete/inventory/' + $routeParams.id).success(function(data) {
         window.location = '#/products';
       });
     };

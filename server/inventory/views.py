@@ -19,14 +19,15 @@ def detail(request, item_id):
 
 def update(request, item_id):
     if request.method == 'POST':
-        item = Item.objects.filter(itemId=item_id)
+        items = Item.objects.filter(itemId=item_id)
         for o in items:
-            o.count = request.POST['count']
+            o.count = request.POST.get('count', 0)
             o.save()
     return HttpResponse("Inventory item updated.", content_type="text/plain")
 
 def delete(request, item_id):
-    Item.objects.filter(itemId=item_id).delete()
+    if request.method == 'DELETE':
+        Item.objects.filter(itemId=item_id).delete()
     return HttpResponse([], content_type="application/json")
 
 def create(request):
