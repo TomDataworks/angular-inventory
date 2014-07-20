@@ -13,7 +13,8 @@ baseUrl: 'http://localhost:8000/',
 // Spec patterns are relative to the location of the spec file. They may
 // include glob patterns.
 specs: [
-'login_navigation_spec.js'
+'login_navigation_spec.js',
+'lookup_product_spec.js'
 ],
  
 // Options to be passed to Jasmine-node.
