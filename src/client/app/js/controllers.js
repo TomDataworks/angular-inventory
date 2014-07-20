@@ -5,7 +5,7 @@
 var appControllers = angular.module('myApp.controllers', []);
 
 appControllers.controller('ProductController', ['$scope', '$http', function($scope, $http) {
-  $http.get('/django/inventory/').success(function(data) {
+  $http.get('/django/inventory').success(function(data) {
     $scope.products = data;
   });
 }]);
@@ -32,7 +32,7 @@ appControllers.controller('ProductControllerAdd', ['$scope', '$http', function($
 
 }]);
 
-appControllers.controller('ProductDetailsController', ['$scope', '$routeParams', '$http', function($scope, $routeParams, $http) {
+appControllers.controller('ProductDetailsController', ['$scope', '$routeParams', '$http', 'api', function($scope, $routeParams, $http, api) {
     $http.get('/django/inventory/' + $routeParams.id).success(function(data) {
       $scope.product = data[0];
     });
@@ -40,12 +40,13 @@ appControllers.controller('ProductDetailsController', ['$scope', '$routeParams',
       window.location = '#/products';
     };
     $scope.save = function() {
-      $http.post("/django/update/inventory/" + $routeParams.id, $scope.product, {
-        headers: { 'Content-Type': 'application/json; charset=UTF-8'}
-      }).success(function(responseData) {
-        // go back to the main product listing
-        window.location = '#/products';
-      });
+        api.inventory.save($scope.product);
+    //  $http.post("/django/update/inventory/" + $routeParams.id, $scope.product, {
+    //    headers: { 'Content-Type': 'application/json; charset=UTF-8'}
+    //  }).success(function(responseData) {
+    //    // go back to the main product listing
+    //    window.location = '#/products';
+    //  });
     };
     $scope.remove = function() {
       $http.delete('/django/delete/inventory/' + $routeParams.id).success(function(data) {
