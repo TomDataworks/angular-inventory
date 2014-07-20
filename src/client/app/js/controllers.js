@@ -5,7 +5,7 @@
 var appControllers = angular.module('myApp.controllers', []);
 
 appControllers.controller('ProductController', ['$scope', '$http', function($scope, $http) {
-  $http.get('http://localhost:8000/django/inventory/').success(function(data) {
+  $http.get('/django/inventory/').success(function(data) {
     $scope.products = data;
   });
 }]);
@@ -38,19 +38,27 @@ appControllers.controller('ProductControllerAdd', ['$scope', '$http', function($
 }]);
 
 appControllers.controller('ProductDetailsController', ['$scope', '$routeParams', '$http', function($scope, $routeParams, $http) {
-    $http.get('http://localhost:8000/django/inventory/' + $routeParams.id).success(function(data) {
+    $http.get('/django/inventory/' + $routeParams.id).success(function(data) {
       $scope.product = data[0];
     });
     $scope.back = function() {
       window.location = '#/products';
     };
     $scope.save = function() {
-      $http.get('http://localhost:8000/django/update/inventory/' + $routeParams.id + '/' + $scope.product.fields.count).success(function(data) {
+      var transform = function(data){
+          return $.param(data);
+      }
+
+      $http.post("/django/update/inventory/" + $routeParams.id, $scope.product, {
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'},
+        transformRequest: transform
+      }).success(function(responseData) {
+        // go back to the main product listing
         window.location = '#/products';
       });
     };
     $scope.remove = function() {
-      $http.get('http://localhost:8000/django/delete/inventory/' + $routeParams.id).success(function(data) {
+      $http.get('/django/delete/inventory/' + $routeParams.id).success(function(data) {
         window.location = '#/products';
       });
     };

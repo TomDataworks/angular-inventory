@@ -17,12 +17,13 @@ def detail(request, item_id):
     data = serializers.serialize("json", item)
     return HttpResponse(data, content_type="application/json")
 
-def updatecount(request, item_id, new_item_count):
-    items = Item.objects.filter(itemId=item_id)
-    for o in items:
-        o.count = new_item_count
-        o.save()
-    return HttpResponse([], content_type="application/json")
+def update(request):
+    if request.method == 'POST':
+        item = Item.objects.filter(itemId=request.POST['itemId'])
+        for o in items:
+            o.count = request.POST['count']
+            o.save()
+    return HttpResponse("Inventory item updated.", content_type="text/plain")
 
 def delete(request, item_id):
     Item.objects.filter(itemId=item_id).delete()
