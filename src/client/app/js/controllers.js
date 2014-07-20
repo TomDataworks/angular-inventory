@@ -10,24 +10,21 @@ appControllers.controller('ProductController', ['$scope', '$http', function($sco
   });
 }]);
 
-appControllers.controller('ProductControllerAdd', ['$scope', '$http', function($scope, $http) {
+appControllers.controller('ProductControllerAdd', ['$scope', '$http', 'api', function($scope, $http, api) {
     $http.defaults.xsrfCookieName = 'csrftoken';
     $http.defaults.xsrfHeaderName = 'X-CSRFToken';
-    $scope.product = {
-      "itemId": "please-enter-an-id",
-      "name": "Product Name",
-      "count": 0,
-      "short": "Enter a short description",
-      "desc": "Enter a longer description"
-    };
+
+    $scope.product = {"fields":{
+        "itemId": "enter-an-item-id",
+        "name": "Product Name",
+        "count": 0,
+        "short": "Short Product Description",
+        "desc": "Longer Product Description"
+    }};
 
     $scope.save = function() {
-      $http.post("/django/create/inventory/", $scope.product, {
-        headers: { 'Content-Type': 'application/json; charset=UTF-8'}
-      }).success(function(responseData) {
-        // go back to the main product listing
+        api.inventory.save($scope.product);
         window.location = '#/products';
-      });
     };
 
 }]);
@@ -41,16 +38,10 @@ appControllers.controller('ProductDetailsController', ['$scope', '$routeParams',
     };
     $scope.save = function() {
         api.inventory.save($scope.product);
-    //  $http.post("/django/update/inventory/" + $routeParams.id, $scope.product, {
-    //    headers: { 'Content-Type': 'application/json; charset=UTF-8'}
-    //  }).success(function(responseData) {
-    //    // go back to the main product listing
-    //    window.location = '#/products';
-    //  });
+        window.location = '#/products';
     };
     $scope.remove = function() {
-      $http.delete('/django/delete/inventory/' + $routeParams.id).success(function(data) {
+        api.inventory.delete({ id: $scope.product.fields.itemId });
         window.location = '#/products';
-      });
     };
 }]);
