@@ -30,11 +30,11 @@ appControllers.controller('ProductControllerAdd', ['$scope', '$http', 'api', fun
 }]);
 
 appControllers.controller('ProductDetailsController', ['$scope', '$routeParams', '$http', 'api', function($scope, $routeParams, $http, api) {
-    $http.get('/django/inventory/' + $routeParams.id).success(function(data) {
-      $scope.product = data[0];
+    api.inventory.query({id: $routeParams.id}, function(data) {
+        $scope.product = data[0];
     });
     $scope.back = function() {
-      window.location = '#/products';
+        window.location = '#/products';
     };
     $scope.save = function() {
         api.inventory.save($scope.product);
