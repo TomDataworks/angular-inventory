@@ -12,6 +12,21 @@ var myApp = angular.module('myApp', [
   'myApp.controllers'
 ]);
 
+myApp.factory('myHttpInterceptor', ['$q', function ($q) {
+    return {
+        'request': function(config) {
+            if (config.url.indexOf('/django/') != -1 && config.url.slice(-1) != '/') {
+                config.url += '/';
+            }
+            return config || $q.when(config);
+        }
+    };
+}]);
+
+myApp.config(['$httpProvider', function($httpProvider) {
+    $httpProvider.interceptors.push('myHttpInterceptor');
+}]);
+
 myApp.config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/products', {templateUrl: 'partials/products.html', controller: 'ProductController'});
   $routeProvider.when('/products/:id', {templateUrl: 'partials/product-details.html', controller: 'ProductDetailsController'});
@@ -57,7 +72,7 @@ myApp.factory('api', ['$resource', function($resource){
     users: $resource('/django/accounts/users/', {}, {
       create: {method: 'POST'}
     }, {}),
-    inventory: $resource('/django/inventory/:id')
+    inventory: $resource('/django/inventory/')
   };
 }]);
 
