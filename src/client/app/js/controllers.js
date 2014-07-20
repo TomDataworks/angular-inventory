@@ -4,10 +4,10 @@
 
 var appControllers = angular.module('myApp.controllers', []);
 
-appControllers.controller('ProductController', ['$scope', '$http', function($scope, $http) {
-  $http.get('/django/inventory').success(function(data) {
-    $scope.products = data;
-  });
+appControllers.controller('ProductController', ['$scope', '$http', 'api', function($scope, $http, api) {
+    api.inventory.query(function(data) {
+        $scope.products = data;
+    });
 }]);
 
 appControllers.controller('ProductControllerAdd', ['$scope', '$http', 'api', function($scope, $http, api) {
