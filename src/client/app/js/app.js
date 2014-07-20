@@ -100,7 +100,7 @@ myApp.controller('authController', ['$scope', '$http', 'api', function($scope, $
          }).
          catch(function(data){
            // on incorrect username and password
-           alert(data.data.detail);
+           // alert(data.data.detail);
          });
       };
  

@@ -75,6 +75,29 @@ module.exports = function(grunt) {
         dest: 'dist/client/app/css',
         ext: '.min.css'
       }
+    },
+    protractor_webdriver: {
+      app: {
+        options: {
+          path: 'node_modules/protractor/bin/',
+          command: 'webdriver-manager start'
+        }
+      }
+    },
+    protractor: {
+        options: {
+            configFile: "node_modules/protractor/referenceConf.js",
+            keepAlive: true,
+            noColor: false,
+            args: {
+            }
+        },
+        apptarget: {
+            options: {
+                configFile: "e2e/e2e.conf.js",
+                args: {}
+            }
+        }
     }
   });
 
@@ -88,8 +111,12 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-sass');
   // Load the plugin that provides the "cssmin" task.
   grunt.loadNpmTasks('grunt-contrib-cssmin');
+  // Load the "protractor webdriver" plugin
+  grunt.loadNpmTasks('grunt-protractor-webdriver');
+  // Load the plugin that provides the "protractor" task.
+  grunt.loadNpmTasks('grunt-protractor-runner');
 
   // Default task(s).
   grunt.registerTask('default', ['concat', 'uglify', 'copy', 'sass', 'cssmin']);
-
+  grunt.registerTask('test', ['protractor_webdriver', 'protractor']);
 };
