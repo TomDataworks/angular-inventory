@@ -50,13 +50,13 @@ myApp.factory('api', ['$resource', function($resource){
   // we tell Django not to [3]. This is a problem as the POST data cannot
   // be sent with the redirect. So we want Angular to not strip the slashes!
   return {
-    auth: $resource('/django/accounts/auth\\/', {}, {
+    auth: $resource('/django/accounts/auth/', {}, {
       login: {method: 'POST', transformRequest: add_auth_header},
       logout: {method: 'DELETE'}
-    }),
-    users: $resource('/django/accounts/users\\/', {}, {
+    }, {}),
+    users: $resource('/django/accounts/users/', {}, {
       create: {method: 'POST'}
-    })
+    }, {})
   };
 }]);
 
@@ -67,7 +67,7 @@ myApp.controller('authController', ['$scope', '$http', 'api', function($scope, $
   // autofill-event polyfill [4][5]
   $('#id_auth_form input').checkAndTriggerAutoFillEvent();
 
-  $http.get('/django/accounts/checklogin/').success(function(data) {
+  $http.get('/django/accounts/checklogin').success(function(data) {
     $scope.user = data.username;
   });
  
