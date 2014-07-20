@@ -1,7 +1,7 @@
 {
   "name": "angular-inventory",
   "description": "Inventory database implemented in Angular Javascript, Django, Grunt, etc.",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "homepage": "https://github.com/Arven/angular-inventory",
   "license": "AGPL",
   "private": true,
