@@ -10,6 +10,7 @@ The project has been implemented and tested in the following environment:
 
 - Python 3.2.3 (GCC 4.7.2 on Linux 3.2.57)
 - Python 2.7.3 (for compiling latest stable Node sources)
+- Ruby 1.9.3p194 (for running Sass)
 - Java Runtime Environment 1.7.0_65 (for running Protractor tests)
 - virtualenv (Python Virtual Environments)
 - nginx (Web Server)
@@ -21,7 +22,7 @@ The project has been implemented and tested in the following environment:
 - uwsgi (CGI Middleware)
 - Django Rest Framework
 - Bootstrap Framework
-- SASS (CSS Pre-Processing)
+- Sass 3.3.10 (CSS Pre-Processing)
 - Protractor (Testing Framework)
 - Selenium (Protractor Web Driver)
 - chromedriver (Selenium Interface)
@@ -29,35 +30,36 @@ The project has been implemented and tested in the following environment:
 Installing this Project
 -----------------------
 
-1. You will need to have the following software installed before you can begin:
+1. You will need to have the following software installed before you can begin, these will likely take your package:
 
     ```
     Python 3.2.3 (tested), needs -dev on Debian/Ubuntu
     Python 2.7.3 (tested), needs -dev on Debian/Ubuntu
+    Ruby 1.9.3p194
+    Sass 3.3.10 (Maptastic Maple)
     Java Runtime Environment 1.7.0_65 (tested)
     Pip Package Manager
     Python Virtualenv for 3.2.3
     nginx Web Server
     ```
 
-2. You must install the Node.js software. Make sure to use Python 2, it will not build otherwise. Preferred if you install into the virtualenv with --prefix=/virtual/env/path
+2. You must install Node.js. Make sure to use Python 2, it will not build otherwise. Preferred if you install into the virtualenv with --prefix=/virtual/env/path
 3. Enter the virtual environment: virtualenv /virtual/env/path
 4. Install some dependencies with pip:
 
     ```
-    pip install django
-    pip install uwsgi
+    (venv) $ pip install django
+    (venv) $ pip install uwsgi
     ```
 
-5. Enter the source directory.
-6. Install the dependencies for the package:
+5. Install the dependencies for the package, from within the source directory:
 
     ```
-    npm install
-    npm install -g grunt-cli
+    (venv) $ npm install
+    (venv) $ npm install -g grunt-cli
     ```
 
-7. Configure the uwsgi.ini in server/. You need to change chdir, daemonize, and socket to appropriate values for where you checked the repository into.
+6. Configure the uwsgi.ini in server/. You need to change chdir, daemonize, and socket to appropriate values for where you checked the repository into.
 
     ```
     [uwsgi]
@@ -72,7 +74,7 @@ Installing this Project
     chmod-socket=666
     ```
 
-8. Configure the inventory_nginx.conf. If you change the listen value, you will also need to change the port in tests/e2e/e2e.conf.js
+7. Configure the inventory_nginx.conf. If you change the listen value, you will also need to change the port in tests/e2e/e2e.conf.js
 
     ```
     uwsgi_pass  unix:///home/arven/trucoin/var/run/uwsgi/app/django_inventory/django_inventory.socket; (set this to the socket specified in uwsgi.ini)
@@ -87,22 +89,23 @@ Installing this Project
     }
     ```
 
+8. You should put the inventory_nginx.conf in your /etc/nginx/sites-enabled/, or link the file there.
 9. Use Grunt to compile the distfiles
 
     ```
-    grunt
+    (venv) $ grunt
     ```
 
 10. Start uwsgi
 
     ```
-    uwsgi uwsgi.ini
+    (venv) $ uwsgi uwsgi.ini
     ```
 
 11. Use Grunt to test the project
 
     ```
-    grunt test
+    (venv) $ grunt test
     ```
 
 12. Now you can browse to the project path http://localhost:8000/app/index.html
