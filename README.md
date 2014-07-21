@@ -89,7 +89,7 @@ Installing this Project
     }
     ```
 
-8. You should put the inventory_nginx.conf in your /etc/nginx/sites-enabled/, or link the file there.
+8. You should put the inventory_nginx.conf in your /etc/nginx/sites-enabled/, or link the file there. Then, have nginx restart or reload configuration.
 9. Use Grunt to compile the distfiles
 
     ```
