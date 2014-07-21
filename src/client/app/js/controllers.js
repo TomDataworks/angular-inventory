@@ -94,7 +94,8 @@ appControllers.controller('ProductControllerAdd', ['$scope', '$http', 'api', fun
               window.location = '#/products';
             }).
             catch(function(data) {
-              alert(data.status + " " + data.statusText);
+              $('#ErrorMessage').text("There was an error saving the data. (" + data.status + " " + data.statusText + ")");
+              $scope.error = true;
             });
     };
 
@@ -121,7 +122,8 @@ appControllers.controller('ProductDetailsController', ['$scope', '$routeParams',
               window.location = '#/products';
             }).
             catch(function(data) {
-              alert(data.status + " " + data.statusText);
+              $('#ErrorMessage').text("There was an error saving the data. (" + data.status + " " + data.statusText + ")");
+              $scope.error = true;
             });
     };
     // Remove button handler, call the API to remove the product
@@ -133,7 +135,8 @@ appControllers.controller('ProductDetailsController', ['$scope', '$routeParams',
               window.location = '#/products';
             }).
             catch(function(data) {
-              alert(data.status + " " + data.statusText);
+              $('#ErrorMessage').text("There was an error saving the data. (" + data.status + " " + data.statusText + ")");
+              $scope.error = true;
             });
     };
 }]);
