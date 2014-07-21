@@ -7,6 +7,25 @@ beforeEach(function() {
 ptor = protractor.getInstance();
 });
 
+it("should not allow the addition of an item", function() {
+ptor.get("/client/app/index.html#/product/add");
+ptor.driver.executeScript("$.fx.off = true;");
+element(by.model("product.fields.itemId")).clear().sendKeys('product-a');
+element(by.model("product.fields.count")).clear().sendKeys('5');
+element(by.model("product.fields.name")).clear().sendKeys('Product A');
+element(by.model("product.fields.short")).clear().sendKeys('Enter a short description');
+element(by.model("product.fields.desc")).clear().sendKeys('Enter a longer description');
+element(by.id("savebutton")).click();
+});
+
+// Test for initial conditions, we were not logged in so nothing should have been added
+it("should display the product listing with no elements, as we were not logged in", function() {
+ptor.get("/client/app/index.html#/products");
+ptor.driver.executeScript("$.fx.off = true;");
+var elements = element.all(by.repeater("product in products | filter:query"));
+expect(elements.count()).toEqual(0);
+});
+
 // Make sure we are logged in
 it("needs to be logged in", function() {
 //ptor.get("/client/app/index.html#/products");
