@@ -29,22 +29,22 @@ The project has been implemented and tested in the following environment:
 Installing this Project
 -----------------------
 
-1.. You will need to have the following software installed before you can begin:
-```
-Python 3.2.3 (tested), needs -dev on Debian/Ubuntu
-Python 2.7.3 (tested), needs -dev on Debian/Ubuntu
-Java Runtime Environment 1.7.0_65 (tested)
-Pip Package Manager
-Python Virtualenv for 3.2.3
-nginx Web Server
-```
-2.. You must install the Node.js software. Make sure to use Python 2, it will not build otherwise. Preferred if you install into the virtualenv with --prefix=/virtual/env/path
-3.. Enter the virtual environment: virtualenv /virtual/env/path
-4.. Install some dependencies with pip:
-```
-pip install django
-pip install uwsgi
-```
+1. You will need to have the following software installed before you can begin:
+    ```
+    Python 3.2.3 (tested), needs -dev on Debian/Ubuntu
+    Python 2.7.3 (tested), needs -dev on Debian/Ubuntu
+    Java Runtime Environment 1.7.0_65 (tested)
+    Pip Package Manager
+    Python Virtualenv for 3.2.3
+    nginx Web Server
+    ```
+2. You must install the Node.js software. Make sure to use Python 2, it will not build otherwise. Preferred if you install into the virtualenv with --prefix=/virtual/env/path
+3. Enter the virtual environment: virtualenv /virtual/env/path
+4. Install some dependencies with pip:
+    ```
+    pip install django
+    pip install uwsgi
+    ```
 5.. Enter the source directory.
 6.. Install the dependencies for the package:
 ```
