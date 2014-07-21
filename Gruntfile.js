@@ -6,7 +6,7 @@ module.exports = function(grunt) {
     concat: {
       app: {
         src: ['src/client/app/js/*.js'],
-        dest: 'dist/client/app/js/app.js'
+        dest: 'dist/app/js/app.js'
       },
       lib: {
         src: ['bower_components/jquery/dist/jquery.js',
@@ -17,22 +17,22 @@ module.exports = function(grunt) {
               'bower_components/angular-cookies/angular-cookies.js',
               'bower_components/angular-resource/angular-resource.js',
               'bower_components/autofill-event/src/autofill-event.js'],
-        dest: 'dist/client/app/js/lib.js'
+        dest: 'dist/app/js/lib.js'
       }
     },
     uglify: {
       app: {
-        files: {'dist/client/app/js/app.min.js': ['dist/client/app/js/app.js']}
+        files: {'dist/app/js/app.min.js': ['dist/client/app/js/app.js']}
       },
       lib: {
-        files: {'dist/client/app/js/lib.min.js': ['dist/client/app/js/lib.js']}
+        files: {'dist/app/js/lib.min.js': ['dist/client/app/js/lib.js']}
       }
     },
     copy: {
       app: {
         files: [
-          { expand: true, src: 'src/client/app/*', dest: 'dist/client/app/', filter: 'isFile', flatten: true },
-          { expand: true, cwd: 'src/client/app/', src: 'partials/*', dest: 'dist/client/app/' }
+          { expand: true, src: 'src/client/app/*', dest: 'dist/app/', filter: 'isFile', flatten: true },
+          { expand: true, cwd: 'src/client/app/', src: 'partials/*', dest: 'dist/app/' }
         ]
       }
     },
@@ -42,8 +42,8 @@ module.exports = function(grunt) {
           includePaths: ['bower_components/foundation/scss']
         },
         files: {
-          'dist/client/app/css/app.css': 'src/client/app/sass/app.sass',
-          'dist/client/app/css/theme.css': 'src/client/app/sass/theme.sass'
+          'dist/app/css/app.css': 'src/client/app/sass/app.sass',
+          'dist/app/css/theme.css': 'src/client/app/sass/theme.sass'
         }
       },
       deploy: {
@@ -52,15 +52,15 @@ module.exports = function(grunt) {
           outputStyle: 'compressed'
         },
         files: {
-          'dist/client/app/css/app.min.css': 'src/client/app/sass/app.sass',
-          'dist/client/app/css/theme.min.css': 'src/client/app/sass/theme.sass'
+          'dist/app/css/app.min.css': 'src/client/app/sass/app.sass',
+          'dist/app/css/theme.min.css': 'src/client/app/sass/theme.sass'
         }
       }
     },
     cssmin: {
       combine: {
         files: {
-          'dist/client/app/css/stylesheets.css': [
+          'dist/app/css/stylesheets.css': [
             'bower_components/html5-boilerplate/css/normalize.css',
             'bower_components/html5-boilerplate/css/main.css',
             'bower_components/bootstrap/dist/css/bootstrap.css',
@@ -70,9 +70,9 @@ module.exports = function(grunt) {
       },
       minify: {
         expand: true,
-        cwd: 'dist/client/app/css',
+        cwd: 'dist/app/css',
         src: ['*.css', '!*.min.css'],
-        dest: 'dist/client/app/css',
+        dest: 'dist/app/css',
         ext: '.min.css'
       }
     },
