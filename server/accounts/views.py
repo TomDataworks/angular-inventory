@@ -13,6 +13,7 @@ from django.core import serializers
 
 from . import serializers, permissions, authenticators, models
 
+# View for Users, wrapper around the Django auth model User
 class UserView(viewsets.ModelViewSet):
     serializer_class = serializers.UserSerializer
     model = User
@@ -22,17 +23,24 @@ class UserView(viewsets.ModelViewSet):
         return (AllowAny() if self.request.method == 'POST'
                 else permissions.IsStaff()),
 
+# View for Auth, which uses Django's default auth model and
+# allows users to log in to the service
 class AuthView(APIView):
     authentication_classes = (authenticators.QuietBasicAuthentication,)
 
+    # Post an auth, or login
     def post(self, request, *args, **kwargs):
         login(request, request.user)
         return Response(serializers.UserSerializer(request.user).data)
 
+    # Delete an auth, or logout
     def delete(self, request, *args, **kwargs):
         logout(request)
         return Response()
 
+# This call allows the client end to check what the logged in
+# user name is, in case if the state is dumped due to a page
+# refresh
 def checklogin(request):
     response_data = {}
     response_data['username'] = request.user.username
