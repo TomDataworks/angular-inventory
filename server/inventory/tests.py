@@ -37,9 +37,17 @@ class InventoryItemTestCase(TestCase):
     # Now we try to update an item, but don't authenticate ourselves. Thus, we
     # should get the initial item
     def test_inventory_update_item_unauthenticated(self):
-        """Inventory items not added when we are not authenticated"""
+        """Inventory items not updated when we are not authenticated"""
         request = factory.post('/django/inventory/product-a', {'fields': {'itemId': 'product-a', 'name': 'Product A', 'count':120, 'short': 'Test product description', 'desc': 'Test product long description'}}, format='json')
         product_a = Item.objects.filter(itemId="product-a")
         self.assertTrue(product_a.exists())
         first = product_a[0]
         self.assertEqual(first.count, 12)
+
+    # Now we try to delete an item, but don't authenticate ourselves. Thus, we
+    # should get the initial item
+    def test_inventory_delete_item_unauthenticated(self):
+        """Inventory items not deleted when we are not authenticated"""
+        request = factory.delete('/django/inventory/product-a')
+        product_a = Item.objects.filter(itemId="product-a")
+        self.assertTrue(product_a.exists())
