@@ -94,7 +94,7 @@ module.exports = function(grunt) {
         },
         apptarget: {
             options: {
-                configFile: "e2e/e2e.conf.js",
+                configFile: "tests/e2e/e2e.conf.js",
                 args: {}
             }
         }
