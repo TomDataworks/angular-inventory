@@ -14,7 +14,10 @@ baseUrl: 'http://localhost:8000/',
 // include glob patterns.
 specs: [
 'login_navigation_spec.js',
-'lookup_product_spec.js'
+'add_products_spec.js',
+'lookup_product_spec.js',
+'update_product_spec.js',
+'delete_products_spec.js'
 ],
  
 // Options to be passed to Jasmine-node.
