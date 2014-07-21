@@ -4,6 +4,65 @@
 
 var appControllers = angular.module('myApp.controllers', []);
 
+appControllers.controller('authController', ['$scope', '$http', 'api', function($scope, $http, api) {
+  // Angular does not detect auto-fill or auto-complete. If the browser
+  // autofills "username", Angular will be unaware of this and think
+  // the $scope.username is blank. To workaround this we use the 
+  // autofill-event polyfill [4][5]
+  $('#id_auth_form input').checkAndTriggerAutoFillEvent();
+
+  // Here we create a simple web service, as this controller is loaded
+  // every time the page is reloaded. We aren't using Django to parse
+  // templates, so rather we check the login on a "new" load of the web
+  // application.
+  $http.get('/django/accounts/checklogin').success(function(data) {
+    $scope.user = data.username;
+  });
+ 
+  // This just returns the credentials from the model
+  $scope.getCredentials = function(){
+    return {username: $scope.username, password: $scope.password};
+  };
+
+  // This allows logging in to the web service, throwing an error to the
+  // user if we could not login.
+  $scope.login = function(){
+    api.auth.login($scope.getCredentials()).
+      $promise.
+         then(function(data){
+           // on good username and password
+           $scope.user = data.username;
+         }).
+         catch(function(data){
+           // on incorrect username and password
+           alert(data.data.detail);
+         });
+      };
+ 
+      // This allows logging out from the web service, which just undefines
+      // the user if the logout was successful.
+      $scope.logout = function(){
+        api.auth.logout(function(){
+          $scope.user = undefined;
+        });
+      };
+
+      // This would allow registration of a new user. We aren't going to
+      // allow that, and just rely on Django admin panel or the manage.py
+      // initial creation of the database.
+      // $scope.register = function($event){
+      //   prevent login form from firing
+      //   $event.preventDefault();
+      //   create user and immediatly login on success
+      //   api.users.create($scope.getCredentials()).
+      //   $promise.
+      //     then($scope.login).
+      //       catch(function(data){
+      //         alert(data.data.username);
+      //       });
+      // };
+}]);
+
 // Application controller for the main product index
 appControllers.controller('ProductController', ['$scope', 'api', function($scope, api) {
     // Query the database for list of products and set the model

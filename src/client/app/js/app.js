@@ -12,9 +12,13 @@ var myApp = angular.module('myApp', [
   'myApp.controllers'
 ]);
 
+// This HTTP Interceptor changes the URL of a request, making sure
+// that _every_ /django request gets a trailing slash.
 myApp.factory('myHttpInterceptor', ['$q', function ($q) {
     return {
         'request': function(config) {
+            // Make sure only /django/ requests get altered, and also
+            // make sure it only happens when there is no trailing slash.
             if (config.url.indexOf('/django/') != -1 && config.url.slice(-1) != '/') {
                 config.url += '/';
             }
@@ -23,14 +27,23 @@ myApp.factory('myHttpInterceptor', ['$q', function ($q) {
     };
 }]);
 
+// This HTTP Provider configuration just pushes the interceptor we
+// just created.
 myApp.config(['$httpProvider', function($httpProvider) {
+    // Add the interceptor to the provider
     $httpProvider.interceptors.push('myHttpInterceptor');
 }]);
 
+// The route provider determines what controller to use when a certain
+// URL is specified
 myApp.config(['$routeProvider', function($routeProvider) {
+  // The products route, displays the product index partial
   $routeProvider.when('/products', {templateUrl: 'partials/products.html', controller: 'ProductController'});
+  // The products/:id route, displays the product details partial
   $routeProvider.when('/products/:id', {templateUrl: 'partials/product-details.html', controller: 'ProductDetailsController'});
+  // The product/add route, displays the add product partial
   $routeProvider.when('/product/add', {templateUrl: 'partials/add-product.html', controller: 'ProductControllerAdd'});
+  // Redirect to the /products route, thus the product index partial
   $routeProvider.otherwise({redirectTo: '/products'});
 }]);
 
@@ -44,6 +57,8 @@ myApp.config(['$routeProvider', function($routeProvider) {
 // [4] https://github.com/tbosch/autofill-event
 // [5] http://remysharp.com/2010/10/08/what-is-a-polyfill/
 
+// Add some configuration to the http provider to make sure that Cross-Site
+// Request Forgery parameters are set.
 myApp.config(['$httpProvider', function($httpProvider){
   // django and angular both support csrf tokens. This tells
   // angular which cookie to add to what header.
@@ -51,7 +66,9 @@ myApp.config(['$httpProvider', function($httpProvider){
   $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
 }]);
 
+// Define the API, which consists of auth, users, and inventory
 myApp.factory('api', ['$resource', function($resource){
+  // Add the Authorization header to the request to the Auth API
   function add_auth_header(data, headersGetter){
     // as per HTTP authentication spec [1], credentials must be
     // encoded in base64. Lets use window.btoa [2]
@@ -65,60 +82,17 @@ myApp.factory('api', ['$resource', function($resource){
   // we tell Django not to [3]. This is a problem as the POST data cannot
   // be sent with the redirect. So we want Angular to not strip the slashes!
   return {
+    // Authentication endpoint
     auth: $resource('/django/accounts/auth/', {}, {
+      // Login must be transformed to add the Authorization header
       login: {method: 'POST', transformRequest: add_auth_header},
       logout: {method: 'DELETE'}
     }, {}),
+    // Users endpoint
     users: $resource('/django/accounts/users/', {}, {
       create: {method: 'POST'}
     }, {}),
+    // Inventory endpoint, this is just standard Angular web service
     inventory: $resource('/django/inventory/:id/')
   };
-}]);
-
-myApp.controller('authController', ['$scope', '$http', 'api', function($scope, $http, api) {
-  // Angular does not detect auto-fill or auto-complete. If the browser
-  // autofills "username", Angular will be unaware of this and think
-  // the $scope.username is blank. To workaround this we use the 
-  // autofill-event polyfill [4][5]
-  $('#id_auth_form input').checkAndTriggerAutoFillEvent();
-
-  $http.get('/django/accounts/checklogin').success(function(data) {
-    $scope.user = data.username;
-  });
- 
-  $scope.getCredentials = function(){
-    return {username: $scope.username, password: $scope.password};
-  };
-
-  $scope.login = function(){
-    api.auth.login($scope.getCredentials()).
-      $promise.
-         then(function(data){
-           // on good username and password
-           $scope.user = data.username;
-         }).
-         catch(function(data){
-           // on incorrect username and password
-           alert(data.data.detail);
-         });
-      };
- 
-      $scope.logout = function(){
-        api.auth.logout(function(){
-          $scope.user = undefined;
-        });
-      };
-     
-      $scope.register = function($event){
-        // prevent login form from firing
-        $event.preventDefault();
-        // create user and immediatly login on success
-        api.users.create($scope.getCredentials()).
-        $promise.
-          then($scope.login).
-            catch(function(data){
-              alert(data.data.username);
-            });
-      };
 }]);
