@@ -30,7 +30,7 @@ The project has been implemented and tested in the following environment:
 Installing this Project
 -----------------------
 
-1. You will need to have the following software installed before you can begin, these will likely take your package:
+1. You will need to have the following software installed before you can begin, these will likely take your package manager or a compile:
 
     ```
     Python 3.2.3 (tested), needs -dev on Debian/Ubuntu
