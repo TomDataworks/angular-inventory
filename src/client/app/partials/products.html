@@ -1,7 +1,10 @@
+<!-- Search field -->
 Search: <input ng-model="query">
 <br/>
+<!-- Make the div and table span automatically across the page -->
 <div class="col-sm-auto">
   <table class="table table-striped">
+    <!-- Table of products -->
     <thead>
       <tr>
         <th><strong>#</strong></th>
@@ -12,6 +15,7 @@ Search: <input ng-model="query">
       </tr>
     </thead>
     <tbody>
+      <!-- repeat for every item returned from the web service -->
       <tr ng-repeat="product in products | filter:query">
         <td>{{product.pk}}</td>
         <td><a href="#/products/{{product.fields.itemId}}">{{product.fields.itemId}}</a></td>

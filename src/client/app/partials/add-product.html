@@ -1,13 +1,16 @@
 <p>These are the product details for the new product.</p>
 
+<!-- List of input fields for product, number of items, name, description, and a
+     short one that appears in the main listing -->
 <ul>
-<li>Product ID: <input type="text" ng-model="product.fields.itemId" required /></li>
-<li>In Stock: <input type="number" ng-model="product.fields.count" required /> items</li>
-<li>Full Name: <input type="text" ng-model="product.fields.name" required /></li>
-<li>Short Description: <input type="text" ng-model="product.fields.short" required /></li>
-<li>Full Description: <input type="text" ng-model="product.fields.desc" required /></li>
+  <li>Product ID: <input type="text" ng-model="product.fields.itemId" required /></li>
+  <li>In Stock: <input type="number" ng-model="product.fields.count" required /> items</li>
+  <li>Full Name: <input type="text" ng-model="product.fields.name" required /></li>
+  <li>Short Description: <input type="text" ng-model="product.fields.short" required /></li>
+  <li>Full Description: <input type="text" ng-model="product.fields.desc" required /></li>
 </ul>
 
+<!-- Two buttons, one to just go back and the other to commit the item to database -->
 <p>
   <button id="backbutton" type="button" class="btn btn-primary" onclick="window.location = '#/products';">Back</button>
   <button id="savebutton" type="button" ng-click="save()" class="btn btn-success">Save Changes</button>

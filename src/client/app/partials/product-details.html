@@ -1,14 +1,19 @@
+<!-- Show the user what product they are editing -->
 <p>These are the product details for {{product.fields.itemId}}.</p>
 
+<!-- List of database fields, with the number of items in stock
+     able to be changed. -->
 <ul>
-<li>Primary Key: {{product.pk}}</li>
-<li>Product ID: {{product.fields.itemId}}</li>
-<li>In Stock: <input type="number" ng-model="product.fields.count" required /> items</li>
-<li>Full Name: {{product.fields.name}}</li>
-<li>Short Description: {{product.fields.short}}</li>
-<li>Full Description: {{product.fields.desc}}</li>
+  <li>Primary Key: {{product.pk}}</li>
+  <li>Product ID: {{product.fields.itemId}}</li>
+  <li>In Stock: <input type="number" ng-model="product.fields.count" required /> items</li>
+  <li>Full Name: {{product.fields.name}}</li>
+  <li>Short Description: {{product.fields.short}}</li>
+  <li>Full Description: {{product.fields.desc}}</li>
 </ul>
 
+<!-- Three buttons, one to back up, another to save changes, and
+     one to remove the item from the database. -->
 <p>
   <button id="backbutton" type="button" ng-click="back()" class="btn btn-primary">Back</button>
   <button id="savebutton" type="button" ng-click="save()" class="btn btn-success">Save Changes</button>

@@ -9,6 +9,8 @@
   <title>Inventory Management System</title>
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Minified stylesheets -->
   <link rel="stylesheet" href="css/stylesheets.min.css"/>
   <link rel="stylesheet" href="css/app.min.css"/>
   <link rel="stylesheet" href="css/theme.min.css"/>
@@ -34,16 +36,20 @@
       <div class="navbar-collapse collapse">
         <ul class="nav navbar-nav">
           <li class="active"><a href="#">Products</a></li>
+          <!-- Dropdown actions menu, for now only contains an Add New Item element -->
           <li class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown">Actions<span class="caret"></span></a>
             <ul class="dropdown-menu" role="menu">
+                <!-- Add a new item, this opens the product add partial view -->
                 <li><a href="#/product/add">Add New Item</a></li>
             </ul>
           </li>
         </ul>
+          <!-- "Form" for handling the logout, contains a single submit button to commit the logout -->
           <div id="logoutform" ng-show="user" class="navbar-form navbar-right">
             <button type="submit" class="btn btn-default" ng-click="logout()">logout {{user}}</button>
           </div>
+          <!-- Form for handling the login, contains a username, password and submit button -->
           <div id="loginform" ng-hide="user">
             <form class="navbar-form navbar-right" role="form" ng-submit="login()">
               <div class="form-group">
@@ -52,6 +58,7 @@
               <div class="form-group">
                 <input ng-model="password" required name="password" type="password" placeholder="Password" class="form-control">
               </div>
+              <!-- Actual button which triggers the sign in action -->
               <button type="submit" class="btn btn-success" value="login">Sign in</button>
             </form>
           </div>
@@ -59,21 +66,14 @@
     </div>
   </div>
 
-<!-- < href="#/products">Products</a> -->
-
   <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
   <![endif]-->
   
   <div class="container theme-showcase" role="main">
-      <!-- Main jumbotron for a primary marketing message or call to action -->
-      <!-- <div class="jumbotron">
-        <h1>Hello, world!</h1>
-        <p>This is a template for a simple marketing or informational website. It includes a large callout called a jumbotron and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
-        <p><a href="#" class="btn btn-primary btn-lg" role="button">Learn more &raquo;</a></p>
-      </div> -->
 
-  <div ng-view></div>
+    <!-- This is where the partial view gets inserted -->
+    <div ng-view></div>
 
   <div>Angular inventory example app: v<span app-version></span></div>
   </div>
