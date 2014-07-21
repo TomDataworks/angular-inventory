@@ -21,7 +21,7 @@ it("should allow the user to login", function() {
 element(by.model("username")).sendKeys('arven');
 element(by.model("password")).sendKeys('testing');
 element(by.buttonText("Sign in")).click();
-//ptor.sleep(1000);
+ptor.sleep(1000);
 });
 
 it("should display the logout form when the user is logged in", function() {

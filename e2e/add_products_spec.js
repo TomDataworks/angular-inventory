@@ -7,6 +7,17 @@ beforeEach(function() {
 ptor = protractor.getInstance();
 });
 
+// Make sure we are logged in
+it("needs to be logged in", function() {
+//ptor.get("/client/app/index.html#/products");
+//ptor.driver.executeScript("$.fx.off = true;");
+// We need to clean up existing stuff in these fields
+element(by.model("username")).clear().sendKeys('arven');
+element(by.model("password")).clear().sendKeys('testing');
+element(by.buttonText("Sign in")).click();
+ptor.sleep(1000);
+});
+
 // Test for initial conditions
 it("should display the product listing with no elements", function() {
 ptor.get("/client/app/index.html#/products");
