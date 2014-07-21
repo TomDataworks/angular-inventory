@@ -76,6 +76,10 @@ myApp.factory('api', ['$resource', function($resource){
     headers['Authorization'] = ('Basic ' + btoa(data.username +
                                         ':' + data.password));
   }
+
+  // NOTE: This information comes from the aforementioned tutorial, and it
+  // only appears to behave properly on Chrome. We work around it differently:
+
   // defining the endpoints. Note we escape url trailing dashes: Angular
   // strips unescaped trailing slashes. Problem as Django redirects urls
   // not ending in slashes to url that ends in slash for SEO reasons, unless

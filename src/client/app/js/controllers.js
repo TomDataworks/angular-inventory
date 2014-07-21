@@ -88,8 +88,14 @@ appControllers.controller('ProductControllerAdd', ['$scope', '$http', 'api', fun
 
     // Save to the database through the API
     $scope.save = function() {
-        api.inventory.save($scope.product);
-        window.location = '#/products';
+        api.inventory.save($scope.product).
+          $promise.
+            then(function(data) {
+              window.location = '#/products';
+            }).
+            catch(function(data) {
+              alert(data.status + " " + data.statusText);
+            });
     };
 
 }]);
@@ -108,14 +114,26 @@ appControllers.controller('ProductDetailsController', ['$scope', '$routeParams',
     };
     // Save button handler, call the API to save the product
     $scope.save = function() {
-        api.inventory.save($scope.product);
-        // Back up to the main view, convenience
-        window.location = '#/products';
+        api.inventory.save($scope.product).
+          $promise.
+            then(function(data) {
+              // Back up to the main view, convenience
+              window.location = '#/products';
+            }).
+            catch(function(data) {
+              alert(data.status + " " + data.statusText);
+            });
     };
     // Remove button handler, call the API to remove the product
     $scope.remove = function() {
-        api.inventory.delete({ id: $scope.product.fields.itemId });
-        // Back up to the main view, this view is invalid
-        window.location = '#/products';
+        api.inventory.delete({ id: $scope.product.fields.itemId }).
+          $promise.
+            then(function(data) {
+              // Back up to the main view, this view is invalid (deleted)
+              window.location = '#/products';
+            }).
+            catch(function(data) {
+              alert(data.status + " " + data.statusText);
+            });
     };
 }]);
