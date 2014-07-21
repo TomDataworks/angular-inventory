@@ -2,7 +2,10 @@ module.exports = function(grunt) {
 
   // Project configuration.
   grunt.initConfig({
+    // Read the package file for this project
     pkg: grunt.file.readJSON('package.json'),
+    // Concatenate all our scripts for application, as well as all deps into two
+    // javascript files
     concat: {
       app: {
         src: ['src/client/app/js/*.js'],
@@ -20,6 +23,9 @@ module.exports = function(grunt) {
         dest: 'dist/app/js/lib.js'
       }
     },
+    // Uglification of our app requires a more strict syntax for defining all
+    // Angular modules, controllers, etc. However, it's nice to know we can do
+    // that, and all Angular code is compatible now.
     uglify: {
       app: {
         files: {'dist/app/js/app.min.js': ['dist/app/js/app.js']}
@@ -28,6 +34,8 @@ module.exports = function(grunt) {
         files: {'dist/app/js/lib.min.js': ['dist/app/js/lib.js']}
       }
     },
+    // We are just copying the single page HTML and the partials over to the
+    // distribution directory.
     copy: {
       app: {
         files: [
@@ -36,6 +44,7 @@ module.exports = function(grunt) {
         ]
       }
     },
+    // Compile the SASS stylesheets to CSS
     sass: {
       dev: {
         options: {
@@ -46,6 +55,7 @@ module.exports = function(grunt) {
           'dist/app/css/theme.css': 'src/client/app/sass/theme.sass'
         }
       },
+      // Minify the stylesheets for release
       deploy: {
         options: {
           includePaths: ['bower_components/foundation/scss'],
@@ -57,7 +67,9 @@ module.exports = function(grunt) {
         }
       }
     },
+    // Minify the dependency stylesheets for release
     cssmin: {
+      // First combine them all
       combine: {
         files: {
           'dist/app/css/stylesheets.css': [
@@ -68,6 +80,7 @@ module.exports = function(grunt) {
           ]
         }
       },
+      // Then compress them
       minify: {
         expand: true,
         cwd: 'dist/app/css',
@@ -76,6 +89,8 @@ module.exports = function(grunt) {
         ext: '.min.css'
       }
     },
+    // The protractor webdriver is required to start the Selenium automated
+    // browser testing system
     protractor_webdriver: {
       app: {
         options: {
@@ -84,6 +99,7 @@ module.exports = function(grunt) {
         }
       }
     },
+    // Protractor is called to actually perform the end to end tests
     protractor: {
         options: {
             configFile: "node_modules/protractor/referenceConf.js",
@@ -118,5 +134,6 @@ module.exports = function(grunt) {
 
   // Default task(s).
   grunt.registerTask('default', ['concat', 'uglify', 'copy', 'sass', 'cssmin']);
+  // Testing task(s).
   grunt.registerTask('test', ['protractor_webdriver', 'protractor']);
 };
