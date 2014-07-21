@@ -22,10 +22,10 @@ module.exports = function(grunt) {
     },
     uglify: {
       app: {
-        files: {'dist/app/js/app.min.js': ['dist/client/app/js/app.js']}
+        files: {'dist/app/js/app.min.js': ['dist/app/js/app.js']}
       },
       lib: {
-        files: {'dist/app/js/lib.min.js': ['dist/client/app/js/lib.js']}
+        files: {'dist/app/js/lib.min.js': ['dist/app/js/lib.js']}
       }
     },
     copy: {
