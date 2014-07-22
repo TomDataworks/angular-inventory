@@ -17,7 +17,7 @@ urlpatterns = patterns('',
     # Accounts system has three parts, one for user management, another
     # for login management, and another just to allow web client to check
     # the login
-    url(r'^django/accounts/users/$', views.UserView.as_view({'get': 'list', 'post': 'create'})),
+    # url(r'^django/accounts/users/$', views.UserView.as_view({'get': 'list', 'post': 'create'})),
     url(r'^django/accounts/auth/$', views.AuthView.as_view(), name='authenticate'),
     url(r'^django/accounts/checklogin/$', 'accounts.views.checklogin'),
 

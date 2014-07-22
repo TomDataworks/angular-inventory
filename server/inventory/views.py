@@ -3,7 +3,6 @@ from django.core import serializers
 from inventory.models import Item
 from decimal import Decimal
 import json
-from django.utils import simplejson
 
 # Create your views here.
 from django.http import HttpResponse
@@ -23,7 +22,7 @@ def index(request):
     # updating an old one
     if request.method == 'POST':
         if request.user.username:
-            data = simplejson.loads(request.body.decode(), parse_float=Decimal)['fields']
+            data = json.loads(request.body.decode(), parse_float=Decimal)['fields']
             items = Item.objects.filter(itemId=data['itemId'])
             if items:
                 for o in items:
