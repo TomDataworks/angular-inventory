@@ -8,4 +8,4 @@
 // While this is here as a trivial example, I've been using it to
 // keep track of the version number of my application.
 angular.module('myApp.services', []).
-  value('version', '0.4');
+  value('version', '0.5');
